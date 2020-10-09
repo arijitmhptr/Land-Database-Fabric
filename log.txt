@@ -1,0 +1,3 @@
+Installed chaincodes on peer:
+Package ID: landdata_1:47335ca2683d8e089a3a104773e23e350ccaab86c44723855f63505310ab8e5c, Label: landdata_1
+Package ID: landdata_2:c104b9277d2642a934051bf4855735005b8ec88d05e7a5c7badb4e93f3e510ad, Label: landdata_2

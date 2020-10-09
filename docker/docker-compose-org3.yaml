@@ -1,0 +1,45 @@
+version: '2.2'
+
+networks:
+  land:
+
+services:
+
+  couchdb3:
+    image: hyperledger/fabric-couchdb:latest
+    container_name: couchdb3
+    environment:
+      - COUCHDB_USER=
+      - COUCHDB_PASSWORD=
+    ports:
+      - 8984:5984
+    networks:
+      - land
+
+  peer0.org3.land.com:
+    image: hyperledger/fabric-peer:2.2
+    container_name: peer0.org3.land.com
+    extends:
+      file: base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_LOCALMSPID=Org3MSP
+      - CORE_PEER_ID=peer0.org3.land.com
+      - CORE_PEER_ADDRESS=peer0.org3.land.com:10051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:10051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.org3.land.com:10052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:10052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org3.land.com:10051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org3.land.com:10051
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb3:5984
+      - CORE_OPERATIONS_LISTENADDRESS=0.0.0.0:9443
+    volumes:
+      - ../crypto-config/peerOrganizations/org3.land.com/peers/peer0.org3.land.com/msp:/etc/hyperledger/crypto/peer/msp
+      - ../crypto-config/peerOrganizations/org3.land.com/peers/peer0.org3.land.com/tls:/etc/hyperledger/crypto/peer/tls
+      - ./channel/:/etc/hyperledger/channel/
+    depends_on:
+      - couchdb3
+    ports:
+      - 10051:10051
+    networks:
+      - land

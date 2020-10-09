@@ -1,0 +1,9 @@
+REST-API/node_modules/
+chaincode/node_modules/
+crypto-config
+crypto-config-ca
+REST-API/Org1-wallet
+REST-API/Org2-wallet
+CA/fabric-ca
+Fabric-CA
+docker/fabric-ca
